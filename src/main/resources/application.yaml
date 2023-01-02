@@ -1,0 +1,56 @@
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8282
+          jwk-set-uri: http://localhost:8282/.well-known/openid-configuration
+      client:
+        registration:
+          swagger-client-client-credentials:
+            provider: saminium-auth
+            client-id: swagger-client
+            client-secret: secret
+            authorization-grant-type: client_credentials
+            redirect-uri: "http://127.0.0.1:8080/swagger-ui.html"
+            client-name: swagger-client-client-credentials
+        provider:
+          saminium-auth:
+            issuer-uri: http://localhost:8282
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  mvc:
+    dispatch-options-request: true
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+management:
+  server:
+    port: 9090
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    csrf:
+      enabled: false
+    enabled: true
+    oauth:
+      client-id: swagger-client
+      client-secret: secret
+      scopes:
+        - swagger.read
+        - swagger.write
+    oauth2-redirect-url: /swagger-ui.html
+    with-credentials: true
+  show-actuator: true
+
+
+
